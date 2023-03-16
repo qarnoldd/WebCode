@@ -176,4 +176,6 @@ section.suggestedReading {
     border-style: dashed none dashed none;
 }
 
-details{}
+details {
+    padding-bottom: 20px;
+}
