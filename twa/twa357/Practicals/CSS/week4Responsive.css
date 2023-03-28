@@ -1,0 +1,63 @@
+img#logo {
+    padding:5px;
+}
+
+nav {
+    float: right;
+    padding: 20px;
+}
+
+nav > a{
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+nav > a:hover {
+    text-decoration: underline;
+}
+
+ul > *{
+    display: inline-block;
+}
+
+.info-boxes {
+    text-align: center;
+    padding: 5px;
+}
+
+.info-box {
+    display: inline-block;
+    padding: 10px;
+    background-color: #004165;
+    width: 31%;
+}
+
+.infobox > a {
+    color: #ffffff;
+    font-weight: bold;
+    border-bottom: 1px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+* > div.info-box {
+    text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .info-box {
+        width: 95%;
+        margin-top: 5px;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    .right-floated-image {
+        text-align: center;
+        float: none;
+    }
+    nav {
+        padding-right: 5px;
+    }
+}
