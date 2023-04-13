@@ -47,7 +47,7 @@ main {
     margin-bottom: 50px;
 }
 
-#middle {
+section {
     padding-left: 50px;
     padding-right: 50px;
     padding-bottom: 20px;
@@ -149,7 +149,7 @@ ul.contents > li:hover{
     background-color: #f0f0f0;
 }
 
-p.captionvid {
+p#caption {
     font-style: italic;
     font-size: small;
     color:#990000;

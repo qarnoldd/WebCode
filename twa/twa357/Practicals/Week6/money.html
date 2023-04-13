@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Mona's Monthly Money Manager</title>
         <link href="../CSS/week6Styles.css" rel="stylesheet"/>
-        <script src="week6script.js"></script>
+        <script src="../JavaScript/week6script.js"></script>
     </head>
     <body>
         <header>
@@ -21,7 +21,7 @@
                         <p class="help">Input your first name. This is case sensitive.</p>
                     </fieldset>
                     <fieldset>
-                        <label for="moneyType">Income or Expense</label><select name="expenseType" size="1" tabindex="2" onblur="ifIncomeOrExpense()">
+                        <label for="expenseType">Income or Expense</label><select name="expenseType" size="1" tabindex="2" onchange="ifIncomeOrExpense()">
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
                         </select>
