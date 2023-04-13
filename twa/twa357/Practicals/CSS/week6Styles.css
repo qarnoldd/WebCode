@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(43, 71, 43);
+}
+
+header {
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 30px;
+    display:flex;
+    justify-content: center;
+}
+
+#image {
+    height: 100px;
+    margin-top: 2em;
+    margin-left: 20px;
+    filter: invert(1);
+}
+
+h1 {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 3em;
+    text-align: center;
+    margin: 0;
+    margin-top: 50px;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+fieldset {
+    border: 0;
+}
+
+main {
+    font-size:20px;
+    background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 50px;
+    margin: 40px;
+    border-radius: 30px;
+    width: 70%;
+    margin-left: 15%;
+}
+
+label {
+    display: inline-block;
+    width: 30%;
+    text-align: left;
+}
+
+form {
+    margin-left: 20px;
+}
+
+form > * {
+    padding: 10px;
+}
+
+.description {
+    display: none;
+}
+
+.income {
+    display:none;
+}
+
+.expense {
+    display:none;
+}
+
+.help {
+    font-size: 12px;
+    color: rgb(153, 224, 146);
+}
+
+#button {
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: rgb(153, 224, 146);
+    color: white;
+}
+
+.button:active {
+    color: grey;
+    background-color: rgb(43, 71, 43);
+}
+
+#form-error {
+    display: none;
+    color:red;
+}
+#errorAmount {
+    display: none;
+    color:red;
+    font-size: small;
+}
+@media screen and (max-width: 1000px) {
+    h1 {
+        width: 50%;
+    }
+    #image {
+        margin-top:3.5em;
+        margin-left: 0px;   
+    }
+
+    main {
+        margin: 20px;
+        padding-left: 30px;
+        width: 85%;
+    }
+
+    label {
+        display:block;
+        width: 50%;
+    }
+
+}

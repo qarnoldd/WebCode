@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Mona's Monthly Money Manager</title>
+        <link href="../CSS/week6Styles.css" rel="stylesheet"/>
+        <script src="week6script.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Monthly Money Manager</h1>
+            <img id="image" src="https://static.vecteezy.com/system/resources/previews/014/455/897/original/money-icon-on-transparent-background-free-png.png" alt="logo">
+        </header>
+        <main>
+            <span id="form-error">All fields must be filled</span>
+            <section>
+                <h2>Money Manager Form</h2>
+                <form id="expensesForm" method="post" action="https://twaaut.cdms.westernsydney.edu.au/twainfo/form.asp" onsubmit="return validateForm(this);">
+                    <fieldset>
+                        <label for="firstName">First Name</label><input type="text" name="firstName" size="15" maxlength="50" placeholder="John Doe" tabindex="1">
+                        <p class="help">Input your first name. This is case sensitive.</p>
+                    </fieldset>
+                    <fieldset>
+                        <label for="moneyType">Income or Expense</label><select name="expenseType" size="1" tabindex="2" onblur="ifIncomeOrExpense()">
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                        <p class="help">Choose your type, either income or expense.</p>
+                    </fieldset>
+
+                    <fieldset>
+                    <label class="income" for="description">Income Description</label><input type ="text" list="incomeList" name="incdescription" size="20" maxlength="100" placeholder="Salary/Wages" tabindex="3" class="income">
+                    <datalist id="incomeList">
+                        <option value="Salary/Wages">
+                        <option value="Tips">
+                        <option value="Interest">
+                        <option value="Dividends">
+                        <option value="Other">
+                    </datalist>
+                    <label class="expense" for="description">Expense Description</label><input type ="text" list="expenseList" name="exdescription" size="20" maxlength="100" placeholder="Food" tabindex="3" class="expense">
+                    <datalist id="expenseList">
+                        <option value="Rent/Mortgage">
+                        <option value="Transport">
+                        <option value="Food">
+                        <option value="Health">
+                        <option value="Education">
+                        <option value="Lifestyle">
+                        <option value="Other">
+                    </datalist>
+                    <p class="description" class="help">Choose the description of the income or expense.</p>
+                    </fieldset>
+
+                    <fieldset>
+                    <label for="amount">Amount</label><input type="number" name="amount" placeholder="40000, 33" tabindex="4"><p id="errorAmount">You must enter more than 0 dollars</p>
+                    <p class="help">Type in the amount of the income or expense.</p>
+                    </fieldset>
+
+                    <fieldset>
+                    <label for="date">Date</label><input type="date" name="budgetDate" tabindex="4">
+                    <p class="help">Choose the date at which the money was recieved or taken.</p>
+                    </fieldset>
+
+                    <fieldset>
+                    <p>
+                        <input class="button" type="submit" value="Submit Form" tabindex="5">&nbsp;
+                        <input class="button" type ="reset" value="Reset Form" tabindex="6">
+                    </p>
+                    </fieldset>
+
+                </form>
+            </section>
+        </main>
+    </body>
