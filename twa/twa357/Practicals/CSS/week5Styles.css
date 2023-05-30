@@ -30,12 +30,8 @@ h2 {
     font-size: 1.5em;
 }
 
-fieldset {
-    border: 0;
-}
-
 main {
-    font-size:20px;
+    font-size:15px;
     background-color: white;
     padding-top: 20px;
     padding-bottom: 20px;
@@ -46,10 +42,21 @@ main {
     margin-left: 15%;
 }
 
-label {
+#totals {
+    width:10%;
+    padding-left:4%;
+}
+
+.label {
     display: inline-block;
-    width: 30%;
+    width: 10%;
+    padding-left:4%;
+    padding-right: 2%;
     text-align: left;
+}
+
+fieldset {
+    border:none;
 }
 
 form {
@@ -80,7 +87,7 @@ form > * {
     background-color: rgb(43, 71, 43);
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 414px) {
     h1 {
         width: 50%;
     }
@@ -90,14 +97,18 @@ form > * {
     }
 
     main {
-        margin: 20px;
-        padding-left: 30px;
-        width: 85%;
+        font-size: 15px;
+        margin: 0px;
+        padding:0;
+        width: 100%;
     }
 
     label {
-        display:block;
+        display: inline-block;
         width: 50%;
+        padding-left:0;
+        padding-right: 10%;
+        text-align: left;
     }
 
 }

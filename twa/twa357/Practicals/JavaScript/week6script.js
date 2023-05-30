@@ -1,50 +1,149 @@
-function validateForm(theForm){
+function validate(theForm)
+{
     var invalid;
     invalid = false;
-    if(requiredFieldEmpty(theForm.firstName)) invalid = true;
-    
-    if(document.getElementById("expenseType").value == 'income')
+    if(requiredFieldEmpty(document.getElementById("year")))
     {
-        if(requiredFieldEmpty(theForm.incdescription)) invalid = true;
+        document.getElementById("yearError").style.display = "inline-block";
+        document.getElementById("year").style.outline = "2px solid red";
+        invalid = true;
     }
-    if(document.getElementById("expenseType").value == 'expense')
+    else
     {
-        if(requiredFieldEmpty(theForm.exdescription)) invalid = true;
+        document.getElementById("yearError").style.display = "none";
+        document.getElementById("year").style.outline = "none";
     }
-    if(outOfBounds(theForm.amount)) invalid = true;
-    {
-        document.getElementById("errorAmount").style.display = "inline-block";
-    }
-    if(requiredFieldEmpty(theForm.amount)) invalid = true;
-    if(requiredFieldEmpty(theForm.date)) invalid = true;
-    if(outOfBounds(theForm.amount)) invalid = true;
+    if(fieldsetInvalid(document.getElementById("income1"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("income2"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("income3"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("income4"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("income5"))) invalid = true;
 
-    if(invalid) {
-        document.getElementById("form-error").style.display =  "inline-block";
+    if(fieldsetInvalid(document.getElementById("expense1"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("expense2"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("expense3"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("expense4"))) invalid = true;
+    if(fieldsetInvalid(document.getElementById("expense5"))) invalid = true;
+
+    if(invalid)
+    {
         return false;
     }
-    return true;
-}
-
-function outOfBounds(element){
-    if(element.value < 0)
+    else
         return true;
 }
 
-function requiredFieldEmpty(element){
-    if(!element.value.length){
-        return true;
-    }
-}
-
-function ifIncomeOrExpense()
+function totalAll()
 {
-    if(document.getElementById("expenseType").value = "income")
+    var income = document.getElementsByClassName("income");
+    var expense = document.getElementsByClassName("expense");
+    var totalIncome = 0;
+    var totalExpense = 0;
+    var maxTotal = 0;
+
+    for(let i = 0; i < income.length; i++)
     {
-        document.getElementByClass("income").style.display = "inline-block";
+        if(income[i].value.length)
+            totalIncome += parseInt(income[i].value);
     }
-    if(document.getElementById("expenseType").value = "expense")
+
+    for(let i = 0; i < expense.length; i++)
     {
-        document.getElementByClass("expense").style.display = "inline-block";
+        if(expense[i].value.length)
+            totalExpense += parseInt(expense[i].value);
+    }
+    maxTotal = totalIncome - totalExpense;
+    document.getElementById("totalIncome").textContent = totalIncome.toString();
+    document.getElementById("totalExpense").textContent = totalExpense.toString();
+    document.getElementById("totalAll").textContent = maxTotal.toString();
+
+    document.querySelector('input[name="incomeInput"]').value = totalIncome;
+    document.querySelector('input[name="expenseInput"]').value = totalExpense;
+    document.querySelector('input[name="totalInput"]').value = maxTotal;
+
+    if(maxTotal >= (totalIncome*0.25))
+    {
+        document.body.style.backgroundColor = 'green';
+    }
+    else if (maxTotal >= 0)
+    {
+        document.body.style.backgroundColor = 'orange';
+    }
+    else if (maxTotal < 0)
+    {
+        document.body.style.backgroundColor = 'red';
+    }
+}
+ 
+function fieldsetInvalid(element) {
+    var date, description, amount;
+    date = false;
+    description = false;
+    amount = false;
+    date = DateEmpty(element.querySelector('.date'))
+    description = descriptionFieldEmpty(element.querySelector(".description"))
+    amount = requiredFieldEmpty(element.querySelector(".amount"))
+
+
+    if((date && description && amount) || (!date && !description && !amount))
+    {
+        element.querySelector(".error").style.display = "inline-block";
+        element.querySelector(".error").style.display = "none";
+        element.querySelector('.date').style.outline = 'none';
+        element.querySelector('.amount').style.outline = 'none';
+        element.querySelector('.description').style.outline = 'none'
+        return false;
+    }
+    else
+    {
+        if(date)
+        {
+            element.querySelector('.date').style.outline = '2px solid red';
+        }
+        else
+        {
+            element.querySelector('.date').style.outline = 'none';
+        }
+
+        if(description)
+        {
+            element.querySelector('.description').style.outline = '2px solid red';
+        }
+        else
+        {
+            element.querySelector('.description').style.outline = 'none';
+        }
+
+        if(amount)
+        {
+            element.querySelector('.amount').style.outline = '2px solid red';
+        }
+        else
+        {
+            element.querySelector('.amount').style.outline = 'none';
+        }
+    
+        element.querySelector(".error").style.display = "inline-block";
+        return true;
+    } 
+}
+
+function DateEmpty(element) {
+    if(!element.value)
+    {
+        return true;
+    }
+}
+
+function descriptionFieldEmpty(element) {
+    if(element.value == "none")
+    {
+        return true;
+    }
+}
+
+function requiredFieldEmpty(element) {
+    if(!element.value.length) {
+        return true;
     }
 }

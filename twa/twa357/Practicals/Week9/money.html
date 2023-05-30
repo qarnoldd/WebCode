@@ -3,16 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>Mona's Monthly Money Manager</title>
-        <link href="../CSS/week5Styles.css" rel="stylesheet"/>
+        <link href="../CSS/week6Styles.css" rel="stylesheet"/>
     </head>
     <body>
         <header>
             <h1>Monthly Money Manager</h1>
         </header>
         <main>
-            <form id="moneyManagerclass" method="post" action=" https://twaaut.cdms.westernsydney.edu.au/twainfo/form.asp">
+            <form id="moneyManagerForm" method="get" action="budget.php">
                 <fieldset>
-                    <p class = "label">Month:</p> <select name="month" id="month">
+                    <p class="label">Month:</p>
+                    <select name="month" id="month">
                         <option value="january">January</option>
                         <option value="february">February</option>
                         <option value="march">March</option>
@@ -26,16 +27,16 @@
                         <option value="november">November</option>
                         <option value="december">December</option>
                     </select>
-                    <p class="label">Year:</p><input type="text" name="year" maxlength="4" size="4" placeholder="20XX">
+                    <p class="label">Year:</p><input type="text" name="year" id="year" maxlength="4" size="4" placeholder="20XX"><p class="error" id="yearError">Must input a year</p>
                 </fieldset>
                 <h2>My Income</h2>
                 <!-- INCOME 1 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="income1">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
-
+                    <input type="date" class="date" name="date" >
                     <p class="label">Description</p>
-                    <select name="incomeDescription" size="1">
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Salary/Wages">Salary/Wages</option>
                             <option value="Tips">Tips</option>
                             <option value="Interest">Interest</option>
@@ -44,15 +45,17 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="incomeAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount income" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
                 <!-- INCOME 2 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="income2">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="incomeDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Salary/Wages">Salary/Wages</option>
                             <option value="Tips">Tips</option>
                             <option value="Interest">Interest</option>
@@ -61,16 +64,18 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="incomeAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount income" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
 
                 <!-- INCOME 3 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="income3">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="incomeDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Salary/Wages">Salary/Wages</option>
                             <option value="Tips">Tips</option>
                             <option value="Interest">Interest</option>
@@ -79,16 +84,18 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="incomeAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount income" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
 
                 <!-- INCOME 4 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="income4">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="incomeDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Salary/Wages">Salary/Wages</option>
                             <option value="Tips">Tips</option>
                             <option value="Interest">Interest</option>
@@ -97,16 +104,18 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="incomeAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount income" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
 
                 <!-- INCOME 5 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="income5">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="incomeDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Salary/Wages">Salary/Wages</option>
                             <option value="Tips">Tips</option>
                             <option value="Interest">Interest</option>
@@ -115,17 +124,19 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="incomeAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount income" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
 
                 <h2>My Expenses</h2>
                 <!-- EXPENSE 1 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="expense1">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="expenseDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Rent/Mortgage">Rent/Mortgage</option>
                             <option value="Transport">Transport</option>
                             <option value="Food">Food</option>
@@ -136,15 +147,17 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="expenseAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount expense" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
                 <!-- EXPENSE 2 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="expense2">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="expenseDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Rent/Mortgage">Rent/Mortgage</option>
                             <option value="Transport">Transport</option>
                             <option value="Food">Food</option>
@@ -155,15 +168,17 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="expenseAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount expense" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
                 <!-- EXPENSE 3 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="expense3">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="expenseDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Rent/Mortgage">Rent/Mortgage</option>
                             <option value="Transport">Transport</option>
                             <option value="Food">Food</option>
@@ -174,15 +189,17 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="expenseAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount expense"  name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
                 <!-- EXPENSE 4 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="expense4">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="expenseDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Rent/Mortgage">Rent/Mortgage</option>
                             <option value="Transport">Transport</option>
                             <option value="Food">Food</option>
@@ -193,15 +210,17 @@
                     </select>
                     
                     <p class="label">Amount</p>
-                    <input type="text" name="expenseAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount expense" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
                 <!-- EXPENSE 5 --------------------------------------------------------------------------------- -->
-                <fieldset>
+                <fieldset id="expense5">
                     <p class="label">Date</p>
-                    <input type="date" name="date" >
+                    <input type="date" class="date" name="date" >
 
                     <p class="label">Description</p>
-                    <select name="expenseDescription" size="1" >
+                    <select class="description" name="description[]" size="1" >
+                            <option disabled selected value="none"> -description- </option>
                             <option value="Rent/Mortgage">Rent/Mortgage</option>
                             <option value="Transport">Transport</option>
                             <option value="Food">Food</option>
@@ -210,14 +229,20 @@
                             <option value="Lifestyle">Lifestyle</option>
                             <option value="Other">Other</option>
                     </select>
-
+                    
                     <p class="label">Amount</p>
-                    <input type="text" name="expenseAmount" maxlength="10" size="10">
+                    <input type="number" min="1" class="amount expense" name="amount[]" step="0.01" onkeyup="totalAll()">
+                    <p class="error">All inputs for a row must be all filled, or all empty.</p>
                 </fieldset>
-                
-                <h2>Total Income:</h2>
-                <h2>Total Expenses: </h2>
-                <h2>Total Savings: </h2>
+
+                <fieldset id="allTotals">
+                    <h2>Total Income: <span id="totalIncome">0</span></h2>
+                    <h2>Total Expenses: <span id="totalExpense">0</span></h2>
+                    <h2>Total Savings: <span id="totalAll">0</span></h2>
+                    <input type="hidden" name="incomeInput">
+                    <input type="hidden" name="expenseInput">
+                    <input type="hidden" name="totalInput">
+                </fieldset>
                 <fieldset id="submit">
                     <input type="submit">
                     <input type="reset">
