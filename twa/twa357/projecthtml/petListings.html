@@ -16,8 +16,6 @@ if (isset($_SESSION['is_admin'])) {
 } else {
     $is_admin = false;
 }
-// Ensure $species is always an array
-$species = isset($_POST['species']) && is_array($_POST['species']) ? $_POST['species'] : array();
 ?>
 
 <!DOCTYPE html>
@@ -76,11 +74,11 @@ $species = isset($_POST['species']) && is_array($_POST['species']) ? $_POST['spe
                     <input type = "text" name="name" id="name">
                 
                     <label for ="species">Species: </label>
-                    <input type ="checkbox" name="species[]" id="dog" value="Dog" <?php if (in_array('Dog', $species)) echo 'checked'; ?>><label for = "dog">Dog</label>
-                    <input type ="checkbox" name="species[]" id="cat" value="Cat" <?php if (in_array('Cat', $species)) echo 'checked'; ?>><label for = "cat">Cat</label>
-                    <input type ="checkbox" name="species[]" id="bird" value="Bird" <?php if (in_array('Bird', $species)) echo 'checked'; ?>><label for = "bird">Bird</label>
-                    <input type ="checkbox" name="species[]" id="horse" value="Horse" <?php if (in_array('Horse', $species)) echo 'checked'; ?>><label for = "horse">Horse</label>
-                    <input type ="checkbox" name="species[]" id="rabbit" value="Rabbit" <?php if (in_array('Rabbit', $species)) echo 'checked'; ?>><label for = "rabbit">Rabbit</label>
+                    <input type ="checkbox" name="species[]" id="dog" value="Dog"><label for = "dog">Dog</label>
+                    <input type ="checkbox" name="species[]" id="cat" value="Cat"><label for = "cat">Cat</label>
+                    <input type ="checkbox" name="species[]" id="bird" value="Bird"><label for = "bird">Bird</label>
+                    <input type ="checkbox" name="species[]" id="horse" value="Horse"><label for = "horse">Horse</label>
+                    <input type ="checkbox" name="species[]" id="rabbit" value="Rabbit"><label for = "rabbit">Rabbit</label>
                     
                     <label for="status">Adoption Status: </label>
                     <select name="status" size="1">
@@ -107,6 +105,7 @@ $species = isset($_POST['species']) && is_array($_POST['species']) ? $_POST['spe
                         require_once("dbconn.php");
                         
                         $name = isset($_POST['name']) ? $dbConn->escape_string($_POST['name']) : '';
+                        $species = isset($_POST['species']) ? $_POST['species'] : array();
                         $status = isset($_POST['status']) ? $dbConn->escape_string($_POST['status']) : 'both';
                         $state = isset($_POST['state']) ? $dbConn->escape_string($_POST['state']) : 'none';
 
@@ -142,8 +141,8 @@ $species = isset($_POST['species']) && is_array($_POST['species']) ? $_POST['spe
                         { ?>
                         <a href="petDetails.php?pet_id=<?php echo $row['pet_id']; ?>"><section class="rescueBox">
                             <img src="<?php 
-                            if(realpath("images/" . $row["image"]))
-                                echo "images/" . $row["image"];
+                            if(realpath($row["image_path"]))
+                                echo $row["image_path"];
                             else
                                 echo "images/no_image_available.png";
                             ?>">

@@ -21,7 +21,7 @@ if (isset($_SESSION['is_admin'])) {
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Manage Listing</title>
+        <title>New Listing</title>
         <link href="css/master.css" type="text/css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,40 +63,28 @@ if (isset($_SESSION['is_admin'])) {
 			</section>
         </header>
         <main>
-           <?php
-            $pet_id = $_GET['pet_id'];
-            require_once("dbconn.php");
-            $sql = "SELECT * FROM pets WHERE pet_id = '$pet_id'";
-            $results = $dbConn->query($sql)
-                or die ('Problem with query: ' . $dbConn->error); 
-            $row = $results->fetch_assoc();
-            ?>
             <section class="description">
-                <form class="updateListingForm" method="post" onsubmit="return validateUpdate(this);">
+                <form class="updateListingForm" method="post" onsubmit="return validateUpdate(this);" enctype="multipart/form-data">
                     <section>
-                    <img src="<?php  if(realpath("images/" . $row["image"]))
-    echo "images/" . $row["image"];
-else
-    echo "images/no_image_available.png";
-?>">
+                    <input type="file" name="fileToUpload" id="fileToUpload">
                     </section>
                     <section>
                         <label for="name">Name:</label>
-                        <input type="text" name="name" id="name" value="<?php echo $row["name"]?>"><p class="required">*</p>
+                        <input type="text" name="name" id="name">*</p>
                     </section>
                     <section>
-                    <label for="species">Species:</label>
+                        <label for ="species">Species: </label>
                         <select name="species" size="1">
-                            <option value="Dog" <?php if ($row["species"] === "Dog") echo "selected"; ?>>Dog</option>
-                            <option value="Cat" <?php if ($row["species"] === "Cat") echo "selected"; ?>>Cat</option>
-                            <option value="Bird" <?php if ($row["species"] === "Bird") echo "selected"; ?>>Bird</option>
-                            <option value="Horse" <?php if ($row["species"] === "Horse") echo "selected"; ?>>Horse</option>
-                            <option value="Rabbit" <?php if ($row["species"] === "Rabbit") echo "selected"; ?>>Rabbit</option>
-                        </select>
+                            <option value="dog">Dog</option>
+                            <option value="cat">Cat</option>
+                            <option value="bird">Bird</option>
+                            <option value="horse">Horse</option>
+                            <option value="rabbit">Rabbit</option>
+                        </select><p class="required">*</p>
                     </section>
                     <section>
                     <label for="age">Age: </label>
-                    <input type="number" name="age" id="age" value="<?php echo $row["age"]?>"><p class="required">*</p>
+                    <input type="number" name="age" id="age"><p class="required">*</p>
                     </section>
                     <section>
                     <label for="gender">Gender: </label>
@@ -107,36 +95,36 @@ else
                     </section> 
                     <section>
                         <label for="breed">Breed: </label>
-                        <input type="text" id="breed" value="<?php echo $row["breed"]?>" name="breed"><p class="required">*</p>
+                        <input type="text" id="breed" name="breed"><p class="required">*</p>
                     </section>
                     <section>
                     <label for="description">Description: </label><p class="required">*</p>
                     </section>
                     <section>
-                    <textarea name="description" id="descriptionBox" rows="10"cols="100"><?php echo $row["description"]?></textarea>
+                    <textarea name="description" id="descriptionBox" rows="10"cols="100"></textarea>
                     </section>
                     <section>
                         <label for="suburb">Suburb: </label>
-                        <input type="text" name="suburb" id="suburb" value="<?php echo $row["suburb"]?>"><p class="required">*</p>
+                        <input type="text" name="suburb" id="suburb"><p class="required">*</p>
                     </section>
                     <section>
                         <label for="state">State: </label>
-                        <select name="state" id="state" value="<?php echo $row["state"]?>">
-                            <option value="NSW" <?php if ($row["state"] === "NSW") echo "selected"; ?>>New South Wales</option>
-                            <option value="VIC" <?php if ($row["state"] === "VIC") echo "selected"; ?>>Victoria</option>
-                            <option value="QLD" <?php if ($row["state"] === "QLD") echo "selected"; ?>>Queensland</option>
-                            <option value="ACT" <?php if ($row["state"] === "ACT") echo "selected"; ?>>Australian Capital Territory</option>
+                        <select name="state" id="state">
+                            <option value="NSW">New South Wales</option>
+                            <option value="VIC">Victoria</option>
+                            <option value="QLD">Queensland</option>
+                            <option value="ACT">Australian Capital Territory</option>
                         </select><p class="required">*</p>
                     </section>
                     <section>
                         <label for="fee">Fee: </label>
-                        <input type="number" name="fee" id="fee" value="<?php echo $row["fee"]?>"><p class="required">*</p>
+                        <input type="number" name="fee" id="fee"><p class="required">*</p>
                     </section>
                     <section>
                         <input type="submit">
                     </section>
                     <p id="formError" style="color:red; display:none;">All fields must not be empty.</p>
-                    <p id="formPass" style="display: none;">Details Updated!</p>
+                    <p id="formPass" style="display: none;">New pet created!</p>
                 </form>
             </section>  
         </main>  
@@ -149,6 +137,11 @@ else
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    require_once("dbconn.php");
+    $target = "images/".basename($_FILES["fileToUpload"]["name"]);
+    $imageFileType = strtolower(pathinfo($target,PATHINFO_EXTENSION));
+    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target);
+
     $name = $dbConn->escape_string($_POST['name']);
     $species = $dbConn->escape_string($_POST['species']);
     $age = $dbConn->escape_string($_POST['age']);
@@ -159,8 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $state = $dbConn->escape_string($_POST['state']);
     $fee = $dbConn->escape_string($_POST['fee']);
 
-    $sql = "UPDATE pets SET name='$name', species='$species', breed='$breed', age='$age', gender='$gender', description='$description', suburb='$suburb', state='$state', fee='$fee'
-    WHERE pet_id = '$pet_id'";
+    $sql = "INSERT INTO pets (name, species, breed, age, gender, description, suburb, state, fee, image_path) VALUES ('$name', '$species', '$breed', '$age', '$gender', '$description', '$suburb', '$state', '$fee', '$target')";
     $results = $dbConn->query($sql)
         or die ('Problem with query: ' . $dbConn->error);     
 }

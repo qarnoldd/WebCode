@@ -44,8 +44,8 @@ if (isset($_SESSION['is_admin'])) {
 				<section id="RightNav">
                     <?php if($is_admin == 1)
                     {?>
-                    <a href="manageAdoptionApplications.php" class="navmenu">Manage Adoption Applications</a>
-                        <a href="managePetListings.php" class="navmenu">Manage Pet Listings</a>
+                    <a href="manageAdoptionApplications.php" class="navmenu">Manage Applications</a>
+                        <a href="managePetListings.php" class="navmenu">Manage Listings</a>
                     <?php
                     }
                     if($login == true)
@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     $state = $dbConn->escape_string($_POST['state']);
     $fee = $dbConn->escape_string($_POST['fee']);
 
-    $sql = "INSERT INTO pets (name, species, breed, age, gender, description, suburb, state, fee, image_path) VALUES ('$name', '$species', '$breed', '$age', '$gender', '$description', '$suburb', '$state', '$fee', '$target')";
+    $sql = "INSERT INTO pets (name, species, breed, age, gender, description, suburb, state, fee, image) VALUES ('$name', '$species', '$breed', '$age', '$gender', '$description', '$suburb', '$state', '$fee', '$target')";
     $results = $dbConn->query($sql)
         or die ('Problem with query: ' . $dbConn->error);     
 }

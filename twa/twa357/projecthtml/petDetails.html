@@ -80,8 +80,8 @@ if (isset($_SESSION['is_admin'])) {
                 <section>
                     <h3><?php echo $row["name"];?></h3>
                     <p><?php echo $row["species"]?></p>
-                    <img src="<?php  if(realpath("images/" . $row["image"]))
-                                    echo "images/" . $row["image"];
+                    <img src="<?php  if(realpath($row["image_path"]))
+                                    echo $row["image_path"];
                                 else
                                     echo "images/no_image_available.png";?>">
                     <p><?php echo $row["age"]?> Year Old <?php echo $row["gender"]?> <?php echo $row["breed"]?></p>

@@ -1,3 +1,4 @@
+<!--BY STUDENT 20732093 ARNOLD QUIOCHO-->
 <?php
 session_start();
 if (isset($_SESSION['login'])) {
@@ -42,23 +43,11 @@ if (isset($_SESSION['is_admin'])) {
 					<a href="petListings.php" class="navmenu">Pet Listings</a>
 				</section>
 				<section id="RightNav">
-                    <?php if($is_admin == 1)
-                    {?>
                     <a href="manageAdoptionApplications.php" class="navmenu">Manage Applications</a>
                         <a href="managePetListings.php" class="navmenu">Manage Listings</a>
-                    <?php
-                    }
-                    if($login == true)
-                    { ?>
                         <a href="logout.php" class="navmenu">Logout</a>
-                    <?php 
-                    }
-                    else if ($login == false)
-                    { ?>
                     <a href="registrationPage.php" class="navmenu">Register</a>
 					<a href="login.php" class="navmenu">Login</a>
-                    <?php 
-                    } ?>
 				</section>
 			</section>
         </header>
@@ -87,38 +76,11 @@ if (isset($_SESSION['is_admin'])) {
             <section class="display">
                 <h3>Here are some of our rescues</h3> <!-- randomly select 4 pets to display with basic info -->
                     <section class="rescues">
-                        <?php 
-                        require_once("dbconn.php");
-                        $sql = "SELECT * 
-                            FROM pets 
-                            WHERE image IS NOT NULL
-                            AND name IS NOT NULL
-                            AND age IS NOT NULL
-                            AND breed IS NOT NULL
-                            AND description IS NOT NULL
-                            AND status IS NOT NULL
-                            AND suburb IS NOT NULL
-                            AND state IS NOT NULL
-                            ORDER BY RAND() LIMIT 6"; 
-                        $results = $dbConn->query($sql)
-                            or die ('Problem with query: ' . $dbConn->error);                        
-
-                        while($row = $results->fetch_assoc())
-                        { ?>
                         <a><section class="rescueBox">
-                            <img src="<?php 
-                            if(realpath("images/" . $row["image"]))
-                                echo "images/" . $row["image"];
-                            else
-                                echo "images/no_image_available.png";
-                            ?>">
-                            <h4><?php echo $row["name"]?></h4>
-                            <h5><?php echo $row["suburb"]?> <?php echo $row["state"]?></h5>
+                            <img src="">
+                            <h4></h4>
+                            <h5></h5>
                         </section>
-                            <?php } ?>
-                        <?php
-                        $dbConn->close();
-                        ?>
                     </section>
                 </section>
             </section>

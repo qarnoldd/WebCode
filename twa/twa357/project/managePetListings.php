@@ -44,8 +44,8 @@ if (isset($_SESSION['is_admin'])) {
 				<section id="RightNav">
                     <?php if($is_admin == 1)
                     {?>
-                    <a href="manageAdoptionApplications.php" class="navmenu">Manage Adoption Applications</a>
-                        <a href="managePetListings.php" class="navmenu">Manage Pet Listings</a>
+                    <a href="manageAdoptionApplications.php" class="navmenu">Manage Applications</a>
+                        <a href="managePetListings.php" class="navmenu">Manage Listings</a>
                     <?php
                     }
                     if($login == true)
@@ -54,11 +54,11 @@ if (isset($_SESSION['is_admin'])) {
                     <?php 
                     }
                     else if ($login == false)
-                    {?>
+                    { ?>
                     <a href="registrationPage.php" class="navmenu">Register</a>
 					<a href="login.php" class="navmenu">Login</a>
                     <?php 
-                    }?>
+                    } ?>
 				</section>
 			</section>
         </header>
@@ -83,8 +83,8 @@ if (isset($_SESSION['is_admin'])) {
                         ?>
                     <a href="manageListing.php?pet_id=<?php echo $petRow['pet_id']; ?>"><section class="rescueBox">
                         <img src="<?php 
-                        if(realpath($petRow["image_path"]))
-                            echo $petRow["image_path"];
+                        if(realpath("images/" . $petRow["image"]))
+                            echo "images/" . $petRow["image"];
                         else
                             echo "images/no_image_available.png";
                         ?>">

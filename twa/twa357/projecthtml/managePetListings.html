@@ -22,7 +22,7 @@ if (isset($_SESSION['is_admin'])) {
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Manage Adoption Applications</title>
+        <title>Manage Listings</title>
         <link href="css/master.css" type="text/css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,51 +63,34 @@ if (isset($_SESSION['is_admin'])) {
 			</section>
         </header>
         <main>
-            <h3 class="smallTitle">Manage Adoption Applications</h3>
+            <h3 class="smallTitle">Manage Pet Listings</h3>
+            <p class="smallTitle">Click on the pet's icon to manage their listing.</p>
+            <section class="selection">
+                <a href="newListing.php">Create a new listing</a>
+            </section>
             <section class="display">
                 <section class="rescues">
                     <?php 
                     require_once("dbconn.php");
 
-                    $sql ="SELECT * FROM adoptions";
-                    $applicationResults = $dbConn->query($sql)
-                        or die ('Problem with query: ' . $dbConn->error); 
+                    $sql = "SELECT * FROM pets";
+                    $results = $dbConn->query($sql)
+                        or die ('Problem with query: ' . $dbConn->error);
 
-                    while($applications = $applicationResults->fetch_assoc())
+
+                    while($petRow = $results->fetch_assoc())
                     { 
-                        $sql = "SELECT * FROM pets WHERE pet_id = ".$applications["pet_id"];
-                        $results = $dbConn->query($sql)
-                            or die ('Problem with query: ' . $dbConn->error);
-                        $petRow = $results->fetch_assoc();
-                        $sql = "SELECT * FROM users WHERE user_id = ".$applications["user_id"];
-                        $results = $dbConn->query($sql)
-                            or die ('Problem with query: ' . $dbConn->error); 
-                        $userRow = $results->fetch_assoc();
                         ?>
-                    <section class="rescueBox">
+                    <a href="manageListing.php?pet_id=<?php echo $petRow['pet_id']; ?>"><section class="rescueBox">
                         <img src="<?php 
-                        if(realpath("images/" . $petRow["image"]))
-                            echo "images/" . $petRow["image"];
+                        if(realpath($petRow["image_path"]))
+                            echo $petRow["image_path"];
                         else
                             echo "images/no_image_available.png";
                         ?>">
                         <h4><?php echo $petRow["name"];?></h4>
                         <h5><?php echo $petRow["suburb"]?> <?php echo $petRow["state"];?></h5>
-                        <h5>Application Status: <?php echo $applications["application_status"];?></h5>
-                        <h5>Requested by: <?php echo $userRow["first_name"]." ". $userRow["last_name"];?></h5>
-                        <h5>Application Date: <?php echo $applications["application_date"];?></h5>
-                        <h5>Application Notes:</h5>
-                        <p><?php echo $applications["application_notes"];?></p>
-                        <?php if($applications["adoption_date"] != NULL) {?>
-                        <h5>Date Adopted: <?php $applications["adoption_date"];?></h5>
-                        <?php } ?> 
-                        <form method="post" action="updateForm.php" id="manageAdoption" name="manageAdoption">
-                        </select>
-                            <input type="hidden" name="application_id" value="<?php echo $applications["application_id"]; ?>">
-                            <button type="submit" name="accept">Accept</button>
-                            <button type="submit" name="reject">Reject</button>
-                        </form>
-                    </section>
+                    </section></a>
                         <?php } 
                         if($results->num_rows == 0)
                             echo "<br>No results found.";
